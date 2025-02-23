@@ -8,4 +8,3 @@ COPY src/subnet/subnet.py /app/subnet.py
 RUN chmod +x /app/subnet.py
 
 ENTRYPOINT ["/app/subnet.py"]
-

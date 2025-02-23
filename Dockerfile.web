@@ -1,0 +1,15 @@
+FROM python:3.10-slim
+
+WORKDIR /app
+
+# Copy the web interface file into the container
+COPY src/subnet/web_subnet.py /app/web_subnet.py
+
+# Install Flask
+RUN pip install flask
+
+# Expose the web port
+EXPOSE 5000
+
+# Set the entrypoint to run the web application
+ENTRYPOINT [ "python", "/app/web_subnet.py" ]
