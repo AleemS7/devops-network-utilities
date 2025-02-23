@@ -2,8 +2,10 @@ FROM python:3.10-slim
 
 WORKDIR /app
 
-COPY subnet_calc.py /app/subnet_calc.py
+# Copy the subnet.py file from the new location
+COPY src/subnet/subnet.py /app/subnet.py
 
-RUN chmod +x /app/subnet_calc.py
+RUN chmod +x /app/subnet.py
 
-ENTRYPOINT ["/app/subnet_calc.py"]
+ENTRYPOINT ["/app/subnet.py"]
+
