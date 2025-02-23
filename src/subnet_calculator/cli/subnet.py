@@ -3,16 +3,14 @@
 import ipaddress
 import argparse
 
-def calculate_subnet(ip, subnet):
-    try:
-        network = ipaddress.ip_network(f"{ip}/{subnet}", strict=False)
-    except ValueError as e:
-        print(f"Error: {e}")
-        return
-    print("Network:", network)
-    print("Network Address:", network.network_address)
-    print("Broadcast Address:", network.broadcast_address)
-    print("Number of Hosts:", network.num_addresses - 2)  # Excludes network & broadcast addresses
+def calculate_subnet(ip, cidr):
+    network = ipaddress.ip_network(f"{ip}/{cidr}", strict=False)
+    return {
+        "network": str(network),
+        "network_address": str(network.network_address),
+        "broadcast_address": str(network.broadcast_address),
+        "num_hosts": network.num_addresses - 2
+    }
 
 def main():
     parser = argparse.ArgumentParser(description="Subnetting Calculator CLI")
@@ -20,7 +18,9 @@ def main():
     parser.add_argument("subnet", help="Subnet mask in CIDR notation, e.g., 24", type=int)
     args = parser.parse_args()
 
-    calculate_subnet(args.ip, args.subnet)
+    # Call the function and print the result for CLI usage
+    result = calculate_subnet(args.ip, args.subnet)
+    print(result)
 
 if __name__ == "__main__":
     main()
